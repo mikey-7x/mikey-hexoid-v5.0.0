@@ -1,6 +1,3 @@
-# mikey-hexoid-v5.0.0
-
-Here is a complete, industrial-grade README.md tailored for your GitHub repository. It highlights the massive leap in capabilities from your previous version, integrates your specific flashing instructions, and outlines your custom licensing terms.
 # mikey:hexoid v5.0.0 (OMNIVERSE FINAL - CARRIER GRADE)
 
 ![Platform](https://img.shields.io/badge/Platform-Termux%20%7C%20Linux-blue)

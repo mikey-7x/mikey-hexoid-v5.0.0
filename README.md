@@ -56,14 +56,6 @@ Currently, the compilation for the following board IDs encounters errors:
  * 16, 17, 18, 19, 20 (Arduino MKR & Zero SAMD families)
 Help Wanted: If you are an experienced embedded developer and know how to resolve the CLI compilation pathways or toolchain linking errors for these specific SAMD/MegaAVR boards, please reach out.
 
-📧 Contact: chauhanyogesh9512@gmail.com
-
-⚖️ License
-Educational & Non-Commercial Use Only. This project was developed strictly for students, hobbyists, and enthusiastic engineers who want the freedom to compile and upload programs via their Android phones or Linux setups.
- * You may use, modify, and distribute this software for personal and educational purposes.
- * STRICTLY PROHIBITED: You may not use this software, or any part of its source code, for commercial purposes, financial profit, or bundle it into a paid product. Legal actions will be considered if these terms are violated.
-Architect: mikey-7x | Platform: Universal Linux/Termux
-
 ***
 
 ## ©️ Copyright & Usage Rights

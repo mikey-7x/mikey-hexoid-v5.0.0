@@ -8,6 +8,8 @@
 
 Engineered to run seamlessly on everything from standard Linux distributions to high-performance mobile hardware like Snapdragon 8 Gen 3 devices, this tool bridges the gap between PC-dependent compilation and on-the-go embedded systems engineering. 
 
+![mikey:hexoid v5.0.0](mhex.png)
+
 ## 🚀 Why v5.0.0 is a Massive Leap Forward
 
 Compared to the older `mikey:hexoid` script, v5.0.0 is faster, significantly more resilient, and architecturally superior. 

@@ -34,8 +34,9 @@ cd mikey-hexoid-v5.0.0
 chmod +x mhex.sh
 ./mhex.sh
 ```
-
+***
 Once installed, simply type mhex in your terminal to launch the Omni-Engine.
+
 🛠️ Usage & Hardware Flashing
 This engine acts as the compiler. To upload the generated binaries to your physical hardware directly from your Android phone, follow these steps:
 1. Bare AVR Chips (ATmega32, ATmega8a, ATmega328p, etc.)
@@ -46,6 +47,7 @@ This engine acts as the compiler. To upload the generated binaries to your physi
  * Hardware Required: ST-LINK/V2 in-circuit debugger/programmer (via USB OTG).
  * Software Required: ZFlasher STM32
  * Process: Locate the .bin or .hex file. Connect the ST-LINK/V2 to your board and use ZFlasher STM32 to upload the firmware.
+
 ⚠️ Known Issues & Call for Contributors
 Currently, the compilation for the following board IDs encounters errors:
  * 79 (ATmega328PB)

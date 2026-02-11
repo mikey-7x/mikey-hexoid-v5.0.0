@@ -29,10 +29,11 @@ Compared to the older `mikey:hexoid` script, v5.0.0 is faster, significantly mor
 Run the following command in your Linux or Termux environment to deploy the script:
 
 ```bash
-git clone [https://github.com/mikey-7x/mikey-hexoid.git](https://github.com/mikey-7x/mikey-hexoid.git)
-cd mikey-hexoid
-chmod +x install.sh # Assuming you name the bash script install.sh
-./install.sh
+git clone https://github.com/mikey-7x/mikey-hexoid-v5.0.0.git
+cd mikey-hexoid-v5.0.0
+chmod +x mhex.sh
+./mhex.sh
+```
 
 Once installed, simply type mhex in your terminal to launch the Omni-Engine.
 🛠️ Usage & Hardware Flashing

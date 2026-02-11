@@ -55,7 +55,9 @@ Currently, the compilation for the following board IDs encounters errors:
  * 15 (Arduino Nano 33 IoT)
  * 16, 17, 18, 19, 20 (Arduino MKR & Zero SAMD families)
 Help Wanted: If you are an experienced embedded developer and know how to resolve the CLI compilation pathways or toolchain linking errors for these specific SAMD/MegaAVR boards, please reach out.
+
 📧 Contact: chauhanyogesh9512@gmail.com
+
 ⚖️ License
 Educational & Non-Commercial Use Only. This project was developed strictly for students, hobbyists, and enthusiastic engineers who want the freedom to compile and upload programs via their Android phones or Linux setups.
  * You may use, modify, and distribute this software for personal and educational purposes.
@@ -63,5 +65,25 @@ Educational & Non-Commercial Use Only. This project was developed strictly for s
 Architect: mikey-7x | Platform: Universal Linux/Termux
 
 ***
+
+## ©️ Copyright & Usage Rights
+
+**Copyright © 2026 mikey-7x. All rights reserved.**
+
+This software, **mikey:hexoid v5.0.0**, is distributed under a strict **Non-Commercial Educational License**. It is built by and for the maker community, students, and embedded systems enthusiasts.
+
+**✓ Permitted Use:**
+* Downloading, modifying, and running the engine for personal, educational, or hobbyist projects.
+* Sharing the tool with other students or developers completely free of charge.
+
+**✗ Strictly Prohibited:**
+* Selling the script, engine, or any derived outputs.
+* Bundling this software into a paid product or proprietary commercial ecosystem.
+* Using this tool to generate financial profit without prior authorization.
+
+Please refer to the `LICENSE` file in this repository for the complete legal text.
+
+**Commercial Inquiries:** If you wish to utilize this project in a commercial setting, require a proprietary license, or wish to support the project financially, you must obtain explicit written permission. Please reach out directly to: **chauhanyogesh9512@gmail.com**
+
 
 

@@ -34,7 +34,7 @@ cd mikey-hexoid-v5.0.0
 chmod +x mhex.sh
 ./mhex.sh
 ```
-***
+
 Once installed, simply type mhex in your terminal to launch the Omni-Engine.
 
 🛠️ Usage & Hardware Flashing

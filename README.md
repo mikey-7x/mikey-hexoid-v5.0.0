@@ -48,7 +48,7 @@ This engine acts as the compiler. To upload the generated binaries to your physi
 2. STM32 / STM8 Boards (Blue Pill, Black Pill, etc.)
  * Hardware Required: ST-LINK/V2 in-circuit debugger/programmer (via USB OTG).
  * Software Required: ZFlasher STM32
- * Process: Locate the .bin or .hex file. Connect the ST-LINK/V2 to your board and use ZFlasher STM32 to upload the firmware.
+ * Process: Locate the .bin or .hex file. Connect the ST-LINK/V2 to your board and use ZFlasher STM32 to upload the firmware via SWD communication.
 
 ⚠️ Known Issues & Call for Contributors
 Currently, the compilation for the following board IDs encounters errors:

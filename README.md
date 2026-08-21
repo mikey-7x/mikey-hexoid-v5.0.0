@@ -59,6 +59,34 @@ Currently, the compilation for the following board IDs encounters errors:
 Help Wanted: If you are an experienced embedded developer and know how to resolve the CLI compilation pathways or toolchain linking errors for these specific SAMD/MegaAVR boards, please reach out.
 
 ***
+## 💫 improved mikey:hexoid v5.0.0
+```bash
+git clone https://github.com/mikey-7x/mikey-hexoid-v5.0.0.git
+cd mikey-hexoid-v5.0.0
+chmod +x mhex_e.sh
+./mhex_e.sh
+```
+
+🚀 Release Notes: mikey:hexoid v5.0.0 (STM32 Carrier-Grade Update)
+
+1. All-New STM32 Advanced Workflow (Option 8)
+ * Dedicated Omni-Compiler Menu: Added a specialized interactive workflow exclusively for STM32 hardware (BluePill, BlackPill, Nucleo, Discovery).
+ * Tri-Framework Support: Developers can now seamlessly switch between LL (Low-Layer), HAL (Hardware Abstraction Layer), and Standard Arduino coding styles.
+ * Smart Boilerplate Generation: Automatically injects architecture-specific C++ boilerplate (clock initializations, RCC enabling, and correct pin mappings) based on the chosen framework and target board.
+
+2. Modernized Bare-Metal LL Compatibility
+ * Macro Unification Fix: Patched legacy macro conflicts (e.g., replacing the deprecated LL_GPIO_MODE_OUT_PP with the modern LL_GPIO_MODE_OUTPUT).
+ * Cross-Series Support: Code generation now dynamically includes the correct #if defined(STM32F1) and #if defined(STM32F4) pre-processor directives, ensuring perfect compilation across both F1 (BluePill) and F4 (BlackPill/Discovery) architectures.
+
+3. Bulletproof Dependency Manager (Cross-Distro)
+ * Native Arch Linux / Termux Fixes: Refactored the install_deps_smart function to eliminate "Target not found" and redundant installation errors.
+ * Dynamic Package Resolution: The engine now intelligently maps exact package names based on the detected OS package manager (pacman, apt, xbps, or pkg). (e.g., automatically resolving libX11 to libx11 and applying --needed flags for Arch).
+
+4. Unified Android File Routing
+ * Zero-Friction Exports: STM32 .hex, .bin, .elf, and .map files are securely routed to the core /storage/emulated/0/mikey-hexoid-outputs/ directory, keeping Android shared-storage access clean and sequential without breaking internal temporary builds.
+
+5. 100% Core Preservation
+ * All existing Omniverse features remain completely intact: AI Auto-Repair, FPGA IceStorm Toolchain (Yosys/NextPnR), SDCC for 8051/STM8, and the 100+ standard Arduino core targets.
 
 ## ©️ Copyright & Usage Rights
 

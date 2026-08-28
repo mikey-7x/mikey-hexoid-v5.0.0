@@ -88,6 +88,34 @@ chmod +x mhex_e.sh
 5. 100% Core Preservation
  * All existing Omniverse features remain completely intact: AI Auto-Repair, FPGA IceStorm Toolchain (Yosys/NextPnR), SDCC for 8051/STM8, and the 100+ standard Arduino core targets.
 
+## enable the USB HID Profile for the Blue Pill in the compilation flags.
+
+Here is exactly how to patch your mhex engine to support BadUSB/HID compilation:
+
+1. Edit your Python Engine
+
+Open your terminal and use nano to edit the main engine script:
+```
+nano ~/mikey-hexoid/mhex.py
+```
+2. Add the HID Build Flag
+
+Press Ctrl + W to open the search function, type BLUEPILL_F103C8, and press Enter. It will jump to this exact line:
+
+"40": ("BluePill F103C8", "STMicroelectronics:stm32:GenF1:pnum=BLUEPILL_F103C8"),
+
+Modify the line to add ,usb=HID at the end of the board string. Make it look exactly like this:
+
+"40": ("BluePill F103C8", "STMicroelectronics:stm32:GenF1:pnum=BLUEPILL_F103C8,usb=HID"),
+
+3. Save and Compile
+
+Press Ctrl + O, hit Enter to save, and press Ctrl + X to exit nano.
+
+Now, launch mhex, Compile Project and enter Target Board ID 40.
+
+Because you injected ,usb=HID into the FQBN (Fully Qualified Board Name), the STM32 toolchain will now successfully link the native USB hardware to the <Keyboard.h> library, compile without errors, and output your .bin file to your phone's storage. Flash it via ZFlasher and plug it into the PC!
+
 ## ©️ Copyright & Usage Rights
 
 **Copyright © 2026 mikey-7x. All rights reserved.**

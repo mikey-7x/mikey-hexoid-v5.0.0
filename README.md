@@ -46,6 +46,16 @@ PC required.
 | Licence | Strict personal & educational use, **non-commercial** — see [LICENSE](LICENSE) |
 | Version | 5.0.0 |
 
+## Project card
+
+<div align="center">
+
+<img src="assets/github-social-preview.png" alt="mikey:hexoid v5.0.0 — universal embedded compiler for Android (Termux) and Linux" width="100%">
+
+<sub>Official project card. The same image is used as this repository's social preview when the link is shared.</sub>
+
+</div>
+
 ## Two engines
 
 | Script | What it adds |

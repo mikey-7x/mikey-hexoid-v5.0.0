@@ -12,7 +12,7 @@ These are the approved files for this project. They belong to **Yogesh R. Chauha
 | `powered-by-mikey-hexoid-sys.svg` | vector | Print, large-format and scalable use |
 | `mikey-hexoid-sys-mark.png` | 1024 × 1024 | Square mark for icons, footers and tight layouts |
 | `mikey-hexoid-sys-mark.svg` | vector | Scalable square mark |
-| `github-social-preview.png` | 1280 × 640 | Repository social preview image |
+| `github-social-preview.png` | 1280 × 640 | Project card shown in `README.md`, and the repository social preview image |
 
 ## Rules
 

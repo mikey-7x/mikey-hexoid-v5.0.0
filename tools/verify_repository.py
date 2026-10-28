@@ -84,6 +84,8 @@ check("README links the official repository", REPO_URL in readme)
 check("README links the author profile", "https://github.com/mikey-7x" in readme)
 check("README records the copyright", "All rights reserved" in readme)
 check("README has no stale project title", "298.666" not in readme)
+check("README embeds the project card", "assets/github-social-preview.png" in readme)
+check("README keeps the powered-by hero image", "assets/powered-by-mikey-hexoid-sys.png" in readme)
 
 # ------------------------------------------------------------------ licence
 licence = read("LICENSE") if (ROOT / "LICENSE").is_file() else ""

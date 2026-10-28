@@ -1,0 +1,32 @@
+# Local build output
+build/
+*.o
+*.a
+*.d
+*.hex
+*.bin
+*.elf
+*.map
+*.uf2
+*.ihx
+*.asc
+*.blif
+
+# Toolchain output folders created by the engine
+mikey-hexoid-outputs/
+oss-cad-suite/
+
+# Python caches from repository checks
+__pycache__/
+*.py[cod]
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# The brand assets and the original artwork are deliberate project files.
+!assets/*.png
+!assets/*.svg
+!mhex.png

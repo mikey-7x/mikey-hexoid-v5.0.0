@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: "If you use mikey:hexoid in academic or educational work, cite it as below."
+title: "mikey:hexoid v5.0.0: universal embedded cross-compilation engine for Android and Linux"
+abstract: >-
+  A bash installer with an embedded Python engine that prepares embedded toolchains and
+  compiles Arduino-style, SDCC and iCE40 FPGA projects from Android (Termux) or Linux,
+  routing the resulting build artefacts to shared storage for on-device flashing.
+type: software
+version: "5.0.0"
+date-released: "2026-10-28"
+license: other
+license-url: "https://github.com/mikey-7x/mikey-hexoid-v5.0.0/blob/main/LICENSE"
+repository-code: "https://github.com/mikey-7x/mikey-hexoid-v5.0.0"
+url: "https://github.com/mikey-7x/mikey-hexoid-v5.0.0"
+keywords:
+  - embedded
+  - cross-compilation
+  - arduino
+  - stm32
+  - esp32
+  - rp2040
+  - fpga
+  - termux
+  - android
+authors:
+  - family-names: "Chauhan"
+    given-names: "Yogesh R."
+    alias: "mikey-7x"
+    website: "https://github.com/mikey-7x"
+contact:
+  - family-names: "Chauhan"
+    given-names: "Yogesh R."
+    alias: "mikey-7x"
+    website: "https://github.com/mikey-7x"

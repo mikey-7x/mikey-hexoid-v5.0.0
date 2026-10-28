@@ -1,136 +1,288 @@
-# mikey:hexoid v5.0.0 (OMNIVERSE FINAL - CARRIER GRADE)
+<div align="center">
 
-![Platform](https://img.shields.io/badge/Platform-Termux%20%7C%20Linux-blue)
-![Version](https://img.shields.io/badge/Version-5.0.0-brightgreen)
-![License](https://img.shields.io/badge/License-Non--Commercial%20Educational-red)
+<img src="assets/powered-by-mikey-hexoid-sys.png" alt="POWERED BY [mikey:hexoid-sys]" width="620">
 
-**mikey:hexoid v5.0.0** is a carrier-grade, universal cross-compilation engine designed for mobile (Termux/Android) and desktop Linux environments. It transforms your portable device into a fully fledged industrial workstation, capable of compiling C/C++ and Verilog code for over 100+ microcontrollers and FPGA boards directly from your terminal.
+# mikey:hexoid v5.0.0
 
-Engineered to run seamlessly on everything from standard Linux distributions to high-performance mobile hardware like Snapdragon 8 Gen 3 devices, this tool bridges the gap between PC-dependent compilation and on-the-go embedded systems engineering. 
+**Universal embedded cross-compilation engine for Android (Termux) and Linux.**
 
-![mikey:hexoid v5.0.0](mhex.png)
+![Platform](https://img.shields.io/badge/platform-Android%20%7C%20Termux%20%7C%20Linux-2f3640?style=flat-square)
+![Version](https://img.shields.io/badge/version-5.0.0-9aa0a6?style=flat-square)
+![Licence](https://img.shields.io/badge/licence-non--commercial%20%2F%20strict-b3261e?style=flat-square)
+![Targets](https://img.shields.io/badge/targets-105%20board%20entries-3c4043?style=flat-square)
+![Engine](https://img.shields.io/badge/engine-bash%20%2B%20python-202124?style=flat-square)
 
-## 🚀 Why v5.0.0 is a Massive Leap Forward
+`POWERED BY [mikey:hexoid-sys]`
 
-Compared to the older `mikey:hexoid` script, v5.0.0 is faster, significantly more resilient, and architecturally superior. 
+</div>
 
-* **Industrial Self-Healing & Auto-Correction:** The AI-driven auto-repair engine actively monitors your build logs. If a compilation fails due to a missing library (e.g., `Adafruit_NeoPixel.h`, `DHT.h`) or a missing board core, the engine interrupts the failure, automatically searches the Arduino CLI index, installs the missing dependencies, and safely resumes the build.
-* **True Universal Blink Generation:** Forget searching for pinout diagrams. The engine dynamically injects `#define LED_BUILTIN [pin]` for your specific board directly into the code. It even auto-generates SDCC-compatible C code for 8051/STM8 architectures.
-* **Unmatched FPGA Integration:** Full support for the IceStorm toolchain. It synthesizes Verilog, routes the bitstream, generates visual circuit schematics (PNG), and outputs VCD waveforms for simulation—all from a single prompt.
-* **Drastically Improved Speed:** Optimized background caching and intelligent dependency verification mean sub-second menu navigation and faster `.hex`/`.bin` generation times.
+---
 
-## ⚙️ Core Features
+## Overview
 
-* **100+ Boards Supported:** From bare AVRs (ATmega32, ATmega8a, ATmega328p) and STM32s (perfect for building control systems or emulating retro hardware on a Blue Pill) to ESP32s, RP2040s, and 8051 architectures.
-* **Multi-Format Outputs:** Generates `.hex`, `.bin`, `.uf2`, `.elf`, and `.eep` files ready for direct hardware flashing.
-* **Built-in Library Manager:** Search, download, and install zip libraries directly from the CLI without touching a GUI.
-* **Intelligent Workspace Management:** Auto-detects Android file systems to route outputs directly to your `/storage/emulated/0` directory for easy access via Android flashing apps.
+**mikey:hexoid** turns a phone or a Linux terminal into a working build station. One
+installer prepares the toolchains, keeps board definitions and libraries in order, compiles
+Arduino-style projects for the targets in its board table, and copies the resulting build
+artefacts to shared storage so an on-device flashing app can pick them up.
 
-## 📥 Installation
+A Verilog flow is bundled as well: designs for the iCE40 family are synthesised, placed,
+routed and packed with the open-source IceStorm toolchain, with a schematic image and a
+simulation waveform produced alongside the bitstream. 8051 and STM8 projects build through
+SDCC.
 
-Run the following command in your Linux or Termux environment to deploy the script:
+Everything is driven from a numbered terminal menu — no IDE, no desktop session, no local
+PC required.
+
+## At a glance
+
+| Item | Detail |
+| --- | --- |
+| Platform | Android (Termux) and Linux (Debian/Ubuntu, Arch, Void and other `apt`/`pacman`/`xbps` systems) |
+| Implementation | Bash installer with an embedded Python engine (`~/mikey-hexoid/mhex.py`) |
+| Selectable targets | 105 board entries; a few are aliases that share one board definition, and real availability depends on the cores actually installed |
+| Compiler backends | Arduino CLI **0.35.3** (pinned), **SDCC** for 8051/STM8, **OSS CAD Suite** for FPGA |
+| Output formats | Determined by target and toolchain — see [docs/OUTPUTS-AND-BOARDS.md](docs/OUTPUTS-AND-BOARDS.md) |
+| Output location | `/storage/emulated/0/mikey-hexoid-outputs` on Android, `~/mikey-hexoid-outputs` on Linux |
+| Licence | Strict personal & educational use, **non-commercial** — see [LICENSE](LICENSE) |
+| Version | 5.0.0 |
+
+## Two engines
+
+| Script | What it adds |
+| --- | --- |
+| **`mhex.sh`** | The classic omniverse engine. Menus 1–7: smart project creation, universal compile, library manager, code editor, test blinks, pin reference and the operator manual. |
+| **`mhex_e.sh`** | Everything above **plus** menu 8, an STM32 workflow with LL / HAL / plain-Arduino boilerplate, and the cross-distribution dependency fixes. Recommended for STM32 work. |
+
+Both scripts share the same install root (`~/mikey-hexoid`) and the same output folder.
+
+## Quick start
 
 ```bash
-git clone https://github.com/mikey-7x/mikey-hexoid-v5.0.0.git
-cd mikey-hexoid-v5.0.0
-chmod +x mhex.sh
-./mhex.sh
-```
-
-Once installed, simply type mhex in your terminal to launch the Omni-Engine.
-
-🛠️ Usage & Hardware Flashing
-This engine acts as the compiler. To upload the generated binaries to your physical hardware directly from your Android phone, follow these steps:
-1. Bare AVR Chips (ATmega32, ATmega8a, ATmega328p, etc.)
- * Hardware Required: USBASP Programmer (via USB OTG).
- * Software Required: ZFlasher AVR
- * Process: Locate the compiled .hex file in your mikey-hexoid-outputs folder. Use ZFlasher AVR alongside your USBASP to flash the code directly to the chip via SPI communication.
-2. STM32 / STM8 Boards (Blue Pill, Black Pill, etc.)
- * Hardware Required: ST-LINK/V2 in-circuit debugger/programmer (via USB OTG).
- * Software Required: ZFlasher STM32
- * Process: Locate the .bin or .hex file. Connect the ST-LINK/V2 to your board and use ZFlasher STM32 to upload the firmware via SWD communication.
-
-⚠️ Known Issues & Call for Contributors
-Currently, the compilation for the following board IDs encounters errors:
- * 79 (ATmega328PB)
- * 91, 92 (Curiosity AVR128DA48 / DB48)
- * 15 (Arduino Nano 33 IoT)
- * 16, 17, 18, 19, 20 (Arduino MKR & Zero SAMD families)
-Help Wanted: If you are an experienced embedded developer and know how to resolve the CLI compilation pathways or toolchain linking errors for these specific SAMD/MegaAVR boards, please reach out.
-
-***
-## 💫 improved mikey:hexoid v5.0.0
-```bash
+# enhanced engine (recommended)
 git clone https://github.com/mikey-7x/mikey-hexoid-v5.0.0.git
 cd mikey-hexoid-v5.0.0
 chmod +x mhex_e.sh
 ./mhex_e.sh
 ```
 
-🚀 Release Notes: mikey:hexoid v5.0.0 (STM32 Carrier-Grade Update)
-
-1. All-New STM32 Advanced Workflow (Option 8)
- * Dedicated Omni-Compiler Menu: Added a specialized interactive workflow exclusively for STM32 hardware (BluePill, BlackPill, Nucleo, Discovery).
- * Tri-Framework Support: Developers can now seamlessly switch between LL (Low-Layer), HAL (Hardware Abstraction Layer), and Standard Arduino coding styles.
- * Smart Boilerplate Generation: Automatically injects architecture-specific C++ boilerplate (clock initializations, RCC enabling, and correct pin mappings) based on the chosen framework and target board.
-
-2. Modernized Bare-Metal LL Compatibility
- * Macro Unification Fix: Patched legacy macro conflicts (e.g., replacing the deprecated LL_GPIO_MODE_OUT_PP with the modern LL_GPIO_MODE_OUTPUT).
- * Cross-Series Support: Code generation now dynamically includes the correct #if defined(STM32F1) and #if defined(STM32F4) pre-processor directives, ensuring perfect compilation across both F1 (BluePill) and F4 (BlackPill/Discovery) architectures.
-
-3. Bulletproof Dependency Manager (Cross-Distro)
- * Native Arch Linux / Termux Fixes: Refactored the install_deps_smart function to eliminate "Target not found" and redundant installation errors.
- * Dynamic Package Resolution: The engine now intelligently maps exact package names based on the detected OS package manager (pacman, apt, xbps, or pkg). (e.g., automatically resolving libX11 to libx11 and applying --needed flags for Arch).
-
-4. Unified Android File Routing
- * Zero-Friction Exports: STM32 .hex, .bin, .elf, and .map files are securely routed to the core /storage/emulated/0/mikey-hexoid-outputs/ directory, keeping Android shared-storage access clean and sequential without breaking internal temporary builds.
-
-5. 100% Core Preservation
- * All existing Omniverse features remain completely intact: AI Auto-Repair, FPGA IceStorm Toolchain (Yosys/NextPnR), SDCC for 8051/STM8, and the 100+ standard Arduino core targets.
-
-## enable the USB HID Profile for the Blue Pill in the compilation flags.
-
-Here is exactly how to patch your mhex engine to support BadUSB/HID compilation:
-
-1. Edit your Python Engine
-
-Open your terminal and use nano to edit the main engine script:
+```bash
+# classic engine
+git clone https://github.com/mikey-7x/mikey-hexoid-v5.0.0.git
+cd mikey-hexoid-v5.0.0
+chmod +x mhex.sh
+./mhex.sh
 ```
-nano ~/mikey-hexoid/mhex.py
+
+The first run installs system packages, the FPGA tools (when `yosys` is missing), Arduino
+CLI, the board cores and a set of common libraries. It can take a long time and needs a
+working internet connection. When it finishes, the interactive menu opens.
+
+Detailed guidance: **[docs/QUICKSTART.md](docs/QUICKSTART.md)**
+
+## Menu reference
+
+| Option | Action | Engine |
+| --- | --- | --- |
+| `1` | Create New Project (Smart) — picks a board and writes starter code | both |
+| `2` | Compile Project (Universal) — choose project, then target board ID | both |
+| `3` | Library Manager — search the index or install a ZIP from Downloads | both |
+| `4` | Edit Project Code — opens `$EDITOR` (default `nano`) | both |
+| `5` | Generate Test Blinks — fast and slow blink sketches | both |
+| `6` | Pin Definitions (Quick) | both |
+| `7` | Detailed Manual (Long) | both |
+| `8` | STM32 Advanced (LL / HAL / Arduino) | `mhex_e.sh` |
+| `0` | Exit | both |
+
+A typical session is: `1` to create, `4` to edit, `2` to compile, then flash the file from
+the output folder.
+
+## What the installer prepares
+
+- **System packages** resolved per package manager (`apt`, `pacman`, `xbps`, Termux `pkg`).
+- **Arduino CLI 0.35.3** for the detected architecture, downloaded into `~/mikey-hexoid/bin`.
+- **Board indexes and cores**: Arduino AVR, Arduino SAMD (not on `aarch64`), ESP8266, ESP32,
+  RP2040, STM32duino, MiniCore, MightyCore, MegaCore, MicroCore, Adafruit AVR and SAMD,
+  and Teensy. ATTinyCore and DxCore are cloned directly when they are missing.
+- **Common libraries** — display, sensor, networking and motor helpers — installed once on
+  first run.
+- **The FPGA suite** (OSS CAD Suite) when `yosys` is not already available.
+
+Nothing is installed outside `$HOME` except distribution packages, which use the system
+package manager.
+
+## Compiling a project
+
+1. Put each sketch in its own folder under `~/mikey-hexoid/projects/` — a folder must be
+   named like the `.ino` file inside it.
+2. Run the engine and choose **2. Compile Project**.
+3. Pick the project number, then the **board ID** from the printed table
+   (for example `40` = BluePill F103C8).
+4. The engine verifies that the board core is installed, adds a sensible `LED_BUILTIN`
+   definition when the sketch has none, compiles, and copies the artefacts into
+   `mikey-hexoid-outputs/<board name>/<project>/`.
+
+If a build fails because a library or core is missing, the engine reads the compiler output,
+offers to install what it identified, and retries once. It is a log-driven repair step, not
+a general fix for broken source code.
+
+## Output formats
+
+| Target family | Typical files produced | Notes |
+| --- | --- | --- |
+| AVR (`arduino:avr`, MiniCore, MightyCore, MegaCore, MicroCore, ATTinyCore) | `.hex`, `.elf`, sometimes `.eep` | Flash with avrdude / USBasp-based tools |
+| STM32 (STM32duino) | `.bin`, `.hex`, `.elf`, `.map` | Flash through ST-LINK with SWD |
+| ESP8266 / ESP32 | `.bin` (plus `.elf`) | Size and partition settings come from the core |
+| RP2040 | `.uf2` (plus `.elf`) | Copy the `.uf2` to the bootloader drive |
+| Teensy / Adafruit SAMD | `.hex`, `.bin`, `.uf2` depending on core | Follow that core's uploader |
+| 8051 / STM8 (SDCC) | `.hex` (from the SDCC `.ihx`) | Conversion is by file naming only |
+| FPGA (board ID `999`) | `logic.json`, `logic.blif`, `netlist.v`, `circuit.png`, `.asc`, `.bin`, `.hex`, `waveform.vcd` | Each file appears only when the matching tool succeeds |
+
+The engine copies the extensions the toolchain actually emits (`.bin`, `.hex`, `.uf2`,
+`.elf`, `.map`, `.eep`). It does **not** convert one format into another, and no toolchain
+guarantees every format for every board.
+
+## Flashing the result on a phone
+
+**STM32 boards — ZFlasher STM32 with an ST-LINK V2 over USB-OTG**
+
+1. Connect ST-LINK V2 to the board: `SWDIO`, `SWCLK`, `GND`, and `3.3V` only if the board is
+   not otherwise powered.
+2. Plug the ST-LINK into the phone through an OTG adapter and open **ZFlasher STM32**.
+3. Choose the `.bin` or `.hex` file from `mikey-hexoid-outputs`, select the ST-LINK
+   connection, then tap **Go!**.
+
+**AVR boards — ZFlasher AVR with a USBasp**
+
+Choose the `.hex` file, confirm the chip and fuse settings, then flash.
+
+Full step-by-step notes, wiring and safety points: **[docs/FLASHING.md](docs/FLASHING.md)**
+
+## STM32 advanced workflow
+
+Menu **8** in `mhex_e.sh` offers LL, HAL or plain-Arduino boilerplate for the STM32 targets
+in the board table, and compiles existing STM32 projects with the same universal compile
+step. Boilerplate pins (`PC13` for BluePill/BlackPill) are starting points — check them
+against your own board before flashing.
+
+A USB-HID profile is available for the BluePill by appending `,usb=HID` to the board ID 40
+FQBN inside `~/mikey-hexoid/mhex.py`. Note that a reinstall regenerates that file and undoes
+the edit. The exact procedure is in
+**[docs/STM32-WORKFLOW.md](docs/STM32-WORKFLOW.md)**.
+
+## FPGA workflow
+
+Board ID `999` runs the iCE40 flow: Yosys synthesis, a Graphviz schematic, nextPNR
+place-and-route, IceStorm packing, and an Icarus Verilog simulation waveform. If `top.v`
+does not exist, a small LED-counter example is created first.
+
+Details and output meanings: **[docs/FPGA-WORKFLOW.md](docs/FPGA-WORKFLOW.md)**
+
+## Requirements
+
+| Requirement | Notes |
+| --- | --- |
+| Android with Termux, or a Linux distribution | Root is not required, but the installer calls `sudo` for system packages |
+| ~3–6 GB free storage | Toolchains for several architectures are large |
+| Internet access on first run | Package mirrors, board indexes, cores and libraries |
+| `bash`, `python3`, `git`, `curl`/`wget` | Detected and installed by the script |
+
+## Repository layout
+
+```text
+mikey-hexoid-v5.0.0/
+├── mhex.sh                  # classic engine installer
+├── mhex_e.sh                # enhanced engine installer (adds menu 8)
+├── mhex.png                 # original project artwork
+├── LICENSE                  # strict personal & educational use licence
+├── NOTICE.md                # attribution requirements
+├── AUTHORS.md               # author identity and official links
+├── CHANGELOG.md             # release history
+├── CONTRIBUTING.md          # how to report issues and contribute
+├── SECURITY.md              # security and safe-use guidance
+├── SUPPORT.md               # where to ask for help
+├── CITATION.cff             # citation metadata
+├── assets/                  # logo files, social preview and checksums
+├── docs/                    # quick start, usage, outputs, flashing, limitations
+├── tools/verify_repository.py
+└── .github/                 # CI checks, issue and pull-request templates
 ```
-2. Add the HID Build Flag
 
-Press Ctrl + W to open the search function, type BLUEPILL_F103C8, and press Enter. It will jump to this exact line:
+## Verification
 
-"40": ("BluePill F103C8", "STMicroelectronics:stm32:GenF1:pnum=BLUEPILL_F103C8"),
+The repository ships a self-check that runs offline:
 
-Modify the line to add ,usb=HID at the end of the board string. Make it look exactly like this:
+```bash
+python3 tools/verify_repository.py
+```
 
-"40": ("BluePill F103C8", "STMicroelectronics:stm32:GenF1:pnum=BLUEPILL_F103C8,usb=HID"),
+It confirms the expected file set, the exact `POWERED BY [mikey:hexoid-sys]` credit, licence
+terms, script syntax, that the embedded Python engine still parses, and the checksums of the
+brand assets. The same check runs in GitHub Actions on every push and pull request.
 
-3. Save and Compile
+## Known limitations
 
-Press Ctrl + O, hit Enter to save, and press Ctrl + X to exit nano.
+- Some board IDs do not build with the current cores — **79**, **91**, **92**, **15** and
+  **16–20** are the known cases.
+- Entries **34**, **37** and **38** reuse the generic ESP32-C3 / S3 definitions, so board
+  variants may need a corrected FQBN.
+- Board `40` compiles without the USB-HID profile unless it is patched.
+- The FPGA flow targets generic iCE40 parts with a fixed top-level template.
+- No GUI: everything is a terminal menu.
 
-Now, launch mhex, Compile Project and enter Target Board ID 40.
+The full list, with causes and workarounds, is in
+**[docs/KNOWN-LIMITATIONS.md](docs/KNOWN-LIMITATIONS.md)**.
 
-Because you injected ,usb=HID into the FQBN (Fully Qualified Board Name), the STM32 toolchain will now successfully link the native USB hardware to the <Keyboard.h> library, compile without errors, and output your .bin file to your phone's storage. Flash it via ZFlasher and plug it into the PC!
+## Credits and acknowledgements
 
-## ©️ Copyright & Usage Rights
+**Created by mikey-7x — Yogesh R. Chauhan**
+(also known as Chauhan Yogeshkumar R.; online pseudonyms “mikey-7x” and “mikey”).
 
-**Copyright © 2026 mikey-7x. All rights reserved.**
+This engine is orchestration around excellent third-party software. Thanks are due to the
+Arduino CLI and board-core maintainers, STMicroelectronics STM32duino, Espressif
+(ESP8266/ESP32), Raspberry Pi (RP2040), PJRC (Teensy), SpenceKonde (ATTinyCore, DxCore),
+MCUdude (MiniCore, MightyCore, MegaCore, MicroCore), Adafruit (cores and libraries), the
+SDCC developers, YosysHQ (Yosys, nextPNR, IceStorm), Icarus Verilog, Graphviz, and the
+maintainers of ZFlasher for on-device flashing.
 
-This software, **mikey:hexoid v5.0.0**, is distributed under a strict **Non-Commercial Educational License**. It is built by and for the maker community, students, and embedded systems enthusiasts.
+Project artwork, the `POWERED BY [mikey:hexoid-sys]` identity and all original code,
+scripts and documentation are © 2026 Yogesh R. Chauhan (mikey-7x).
 
-**✓ Permitted Use:**
-* Downloading, modifying, and running the engine for personal, educational, or hobbyist projects.
-* Sharing the tool with other students or developers completely free of charge.
+## Licence
 
-**✗ Strictly Prohibited:**
-* Selling the script, engine, or any derived outputs.
-* Bundling this software into a paid product or proprietary commercial ecosystem.
-* Using this tool to generate financial profit without prior authorization.
+Released under the **mikey-7x Strict Personal & Educational Use Licence** — a
+source-available, non-commercial licence. Personal, hobbyist and educational use is
+welcome. Selling the tool or its outputs, bundling it into paid products, and industrial or
+business use are prohibited without a separate signed written licence.
 
-Please refer to the `LICENSE` file in this repository for the complete legal text.
+Read **[LICENSE](LICENSE)** and **[NOTICE.md](NOTICE.md)** before redistributing.
+Commercial licensing enquiries: contact the author through the GitHub profile or the
+repository's commercial-licence issue form.
 
-**Commercial Inquiries:** If you wish to utilize this project in a commercial setting, require a proprietary license, or wish to support the project financially, you must obtain explicit written permission. Please reach out directly to: **chauhanyogesh9512@gmail.com**
+---
+
+<div align="center">
+
+<img src="assets/mikey-hexoid-sys-mark.png" alt="mikey:hexoid-sys" width="140">
+
+**Created by mikey-7x — Yogesh R. Chauhan**
+
+**`POWERED BY [mikey:hexoid-sys]`**
+
+Copyright © 2026 Yogesh R. Chauhan (mikey-7x). All rights reserved.
+
+[Profile](https://github.com/mikey-7x) ·
+[All repositories](https://github.com/mikey-7x?tab=repositories) ·
+[This project](https://github.com/mikey-7x/mikey-hexoid-v5.0.0) ·
+[YouTube](https://youtube.com/@mikey-7x) ·
+[Blog](https://rtod-yv8.blogspot.com/?m=1)
+
+<sub>Non-commercial licence. Not affiliated with or endorsed by any vendor named above.</sub>
+
+</div>
+
+<details>
+<summary>Original project artwork</summary>
+
+![mikey:hexoid v5.0.0 artwork](mhex.png)
+
+</details>

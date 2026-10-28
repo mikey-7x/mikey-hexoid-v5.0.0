@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 
 # =============================================================================
+#   mikey:hexoid v5.0.0 - universal embedded cross-compilation engine
+#   POWERED BY [mikey:hexoid-sys]
 #
-#   mikey:hexoid v5.0.0 (OMNIVERSE FINAL - CARRIER GRADE) - UNIVERSAL LINUX
+#   Created by mikey-7x - Yogesh R. Chauhan
+#   Copyright (c) 2026 Yogesh R. Chauhan (mikey-7x). All rights reserved.
+#   Licence: mikey-7x Strict Personal & Educational Use Licence (see LICENSE).
+#   Commercial or industrial use requires a separate signed written licence.
 #
-#   Architect: mikey-7x | Platform: Universal Linux (Void/Debian/Arch/Termux)
+#   Project: https://github.com/mikey-7x/mikey-hexoid-v5.0.0
+#   Author:  https://github.com/mikey-7x
 #
-#   Features: 100+ Boards | AI Auto-Repair | Full FPGA Suite (Schematic/VCD)
-#             Industrial Self-Healing | Extensive Manual | Multi-Format Output
-#
+#   The compilation logic in this script is unchanged by the branding update:
+#   only the notices above and the console attribution line below were added.
 # =============================================================================
 
 set +e
@@ -32,6 +37,7 @@ echo "║      mikey:hexoid v5.0.0 (Universal Linux Edition)              ║"
 echo "║      100+ Boards Support | Smart Create | Universal Blink       ║"
 echo "║      >> AI Auto-Repair & Industrial Self-Healing Enabled <<     ║"
 echo "╚═════════════════════════════════════════════════════════════════╝"
+echo -e "${C_GRN}  POWERED BY [mikey:hexoid-sys]  |  Created by mikey-7x (Yogesh R. Chauhan)${C_OFF}"
 echo -e "${C_OFF}"
 
 # Detect Architecture
@@ -417,6 +423,7 @@ class UI:
         print(f"\n{UI.C}╔" + "═"*60 + "╗")
         print(f"║{UI.B}   mikey:hexoid v5.0.0 (OMNIVERSE FINAL)                  {UI.OFF}{UI.C}║")
         print("╚" + "═"*60 + "╝" + UI.OFF)
+        print(f"{UI.C}  POWERED BY [mikey:hexoid-sys]  |  Created by mikey-7x{UI.OFF}")
 
 # =============================================================================
 # HELPER FUNCTIONS

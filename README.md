@@ -134,12 +134,3 @@ This software, **mikey:hexoid v5.0.0**, is distributed under a strict **Non-Comm
 Please refer to the `LICENSE` file in this repository for the complete legal text.
 
 **Commercial Inquiries:** If you wish to utilize this project in a commercial setting, require a proprietary license, or wish to support the project financially, you must obtain explicit written permission. Please reach out directly to: **chauhanyogesh9512@gmail.com**
-
----
-
-<p align="center">
-  <img src="assets/mikey-hexoid-sys-mark.png" alt="mikey:hexoid-sys emblem" width="120"><br>
-  <strong>POWERED BY [mikey:hexoid-sys]</strong><br>
-  Created by <strong><a href="https://github.com/mikey-7x">mikey-7x</a> — Yogesh R. Chauhan</strong>
-</p>
-

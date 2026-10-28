@@ -1,0 +1,58 @@
+name: Bug report
+description: Report a build, install or flashing problem with mikey:hexoid
+title: "[bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Read `docs/TROUBLESHOOTING.md` and
+        `docs/KNOWN-LIMITATIONS.md` first — several board IDs are known not to build.
+        This repository is `POWERED BY [mikey:hexoid-sys]` by mikey-7x.
+  - type: input
+    id: version
+    attributes:
+      label: Engine and version
+      description: Which script did you run, and which version is printed in the banner?
+      placeholder: mhex_e.sh, v5.0.0
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Platform
+      description: Output of `uname -a`, plus the distribution or Termux
+      placeholder: Android 14, Termux, aarch64
+    validations:
+      required: true
+  - type: input
+    id: board
+    attributes:
+      label: Target board ID
+      description: The number you typed at the Board ID prompt
+      placeholder: "40 (BluePill F103C8)"
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: The menu option, the step that failed, and what you expected
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant output
+      description: Paste the compiler output, including the first error line
+      render: shell
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I ran `python3 tools/verify_repository.py` and it passed, or I pasted its output
+        - label: I checked the known failing board IDs
+        - label: I understand this project is non-commercial and has no paid support
+          required: true

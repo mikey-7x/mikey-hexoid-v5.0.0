@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Read the documentation first
+    url: https://github.com/mikey-7x/mikey-hexoid-v5.0.0/tree/main/docs
+    about: Quick start, usage, outputs, flashing, troubleshooting and known limitations.
+  - name: Author profile
+    url: https://github.com/mikey-7x
+    about: mikey-7x — Yogesh R. Chauhan. POWERED BY [mikey:hexoid-sys].
+  - name: All mikey-7x repositories
+    url: https://github.com/mikey-7x?tab=repositories
+    about: Other projects by the same author.

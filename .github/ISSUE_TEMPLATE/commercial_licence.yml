@@ -1,0 +1,50 @@
+name: Commercial or industrial licence request
+description: Request written permission for commercial, industrial or institutional use
+title: "[licence] commercial use request"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        `mikey:hexoid` is released under the strict personal and educational licence in
+        `LICENSE`. Selling it, bundling it into paid products, and industrial or business
+        use require a separate signed written licence from Yogesh R. Chauhan (mikey-7x).
+        `POWERED BY [mikey:hexoid-sys]` must remain visible in any permitted use.
+  - type: input
+    id: organisation
+    attributes:
+      label: Your name or organisation
+    validations:
+      required: true
+  - type: textarea
+    id: use
+    attributes:
+      label: Intended use
+      description: What will you build, and where will the tool or its outputs run?
+    validations:
+      required: true
+  - type: dropdown
+    id: scale
+    attributes:
+      label: Scale
+      options:
+        - One-off internal project
+        - Classroom or training programme
+        - Product development
+        - Manufacturing or production line
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: contact
+    attributes:
+      label: Preferred contact
+      description: Email or other channel for the written reply
+    validations:
+      required: true
+  - type: checkboxes
+    id: ack
+    attributes:
+      label: Acknowledgement
+      options:
+        - label: I understand no commercial rights are granted until a written licence is signed
+          required: true
